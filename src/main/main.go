@@ -25,7 +25,7 @@ var buttons = []tgbotapi.KeyboardButton{
 	tgbotapi.KeyboardButton{Text: "Get Joke"},	
 }
 //При старте приложения, оно скажет телеграму ходить с обновлениями по этому URL
-const WebhookURL = "https://msu-go-2017.herokuapp.com/"
+const WebhookURL = "https://app-test48.herokuapp.com/"
 
 func getJoke() string {
 	c := http.Client{}
