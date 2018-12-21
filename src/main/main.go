@@ -48,17 +48,18 @@ func main() {
         // Heroku прокидывает порт для приложения в переменную окружения PORT
         port := os.Getenv("PORT")
 	bot, err := tgbotapi.NewBotAPI("721794920:AAG6xnxtZHmCC-u6-55-LMAVnIakqOjUqv0")
+        //721794920:AAG6xnxtZHmCC-u6-55-LMAVnIakqOjUqv0
         if err != nil {
-		log.Fatal(err)
+		log.Fatal("NewBotAPI",err)
 	}
 	bot.Debug =true
 	log.Printf("Authorized on account %s",bot.Self.UserName)
 	// устанавливаем иубхук
 	_, err = bot.SetWebhook(tgbotapi.NewWebhook(WebhookURL))
         if err != nil {
-		log.Fatal(err)
+		log.Fatal("SetWebhook",err)
 	}
-        updates :=bot.ListenForWebhook("/")
+        updates := bot.ListenForWebhook("/")
         go http.ListenAndServe(":"+port,nil)
         
 	// получаем все обновления из канала updates
