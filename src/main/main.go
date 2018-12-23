@@ -45,7 +45,7 @@ func getJoke() string {
 	if err != nil {
 		return "Joke error"
 	}
-	return tjoke.Value.Joke
+	return joke.Value.Joke
 
 }
 
@@ -53,13 +53,13 @@ func getTranslate() string {
 	sjoke := getJoke()
 	c := http.Client{}
         transURL := WebTranslateURL+"&txt="+sjoke
-	resp, err := c.Get(transURL)
+	resp, err := c.Post(transURL)
 	if err != nil {
 		return "Переводчик API not responding"
 	}
 	defer resp.Body.Close()
 	body, _ := ioutil.ReadAll(resp.Body)
-	tjoke := string{}
+	tjoke := []string{}
 	err = json.Unmarshal(body, &tjoke)
 	if err != nil {
 		return "Joke error"
