@@ -22,7 +22,7 @@ type JokeResponse struct {
 }
 
 var buttons = []tgbotapi.KeyboardButton{
-	tgbotapi.KeyboardButton{Text: "Get Joke"},	
+	tgbotapi.KeyboardButton{Text: "Get Прикол"},	
 }
 //При старте приложения, оно скажет телеграму ходить с обновлениями по этому URL
 
@@ -71,7 +71,7 @@ func main() {
 		var message tgbotapi.MessageConfig
 		log.Println("received text: ",update.Message.Text)
 		switch update.Message.Text {
-		case "Get Joke" :
+		case "Get Прикол" :
 			//Если пользователь нажал на кнопку то придет сообщение Get Joke
 		        message = tgbotapi.NewMessage(update.Message.Chat.ID, getJoke())
 		default:
