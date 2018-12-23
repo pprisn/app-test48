@@ -7,6 +7,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"strings"
 )
 // для вендоринга используется GB
 // сборка проекта gb build
@@ -61,7 +62,7 @@ func getTranslate() string {
 	body, _ := ioutil.ReadAll(resp.Body)
 	var tjoke string
 	//err = json.Unmarshal(body, &tjoke)
-        tjoke = String(body)
+        tjoke = string(body)
 	if err != nil {
 		return "Joke error"
 	}
