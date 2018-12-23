@@ -25,6 +25,7 @@ var buttons = []tgbotapi.KeyboardButton{
 	tgbotapi.KeyboardButton{Text: "Get Joke"},	
 }
 //При старте приложения, оно скажет телеграму ходить с обновлениями по этому URL
+
 const WebhookURL = "https://app-test48.herokuapp.com/"
 
 func getJoke() string {
@@ -38,7 +39,7 @@ func getJoke() string {
 	joke := JokeResponse{}
 	err = json.Unmarshal(body, &joke)
 	if err != nil {
-		log.Fatal(err)
+		return "Joke error"
 	}
 	return joke.Value.Joke
 
@@ -50,15 +51,18 @@ func main() {
 	bot, err := tgbotapi.NewBotAPI("721794920:AAG6xnxtZHmCC-u6-55-LMAVnIakqOjUqv0")
         //721794920:AAG6xnxtZHmCC-u6-55-LMAVnIakqOjUqv0
         if err != nil {
-		log.Fatal("NewBotAPI",err)
+		log.Fatal(err)
 	}
+
 	bot.Debug =true
+
 	log.Printf("Authorized on account %s",bot.Self.UserName)
 	// устанавливаем иубхук
 	_, err = bot.SetWebhook(tgbotapi.NewWebhook(WebhookURL))
         if err != nil {
-		log.Fatal("SetWebhook",err)
+		log.Fatal(err)
 	}
+
         updates := bot.ListenForWebhook("/")
         go http.ListenAndServe(":"+port,nil)
         
