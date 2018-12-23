@@ -61,7 +61,7 @@ func getTranslate() string {
 	body, _ := ioutil.ReadAll(resp.Body)
 	var tjoke string
 	//err = json.Unmarshal(body, &tjoke)
-        tjoke = resp.Body.String()
+        tjoke = String(body)
 	if err != nil {
 		return "Joke error"
 	}
