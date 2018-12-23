@@ -22,11 +22,15 @@ type JokeResponse struct {
 }
 
 var buttons = []tgbotapi.KeyboardButton{
-	tgbotapi.KeyboardButton{Text: "Get Прикол"},	
+	tgbotapi.KeyboardButton{Text: "Get Прикол"},
+        tgbotapi.KeyboardButton{Text: "Прикол на русском"},	
 }
 //При старте приложения, оно скажет телеграму ходить с обновлениями по этому URL
 
 const WebhookURL = "https://app-test48.herokuapp.com/"
+
+//const Key = "trnsl.1.1.20181223T210433Z.361ff973b9abaaa1.4c419ee8e5989f4c18f5039d5049b5a5d7b398d7"
+const WebTranslateURL = "https://translate.yandex.net/api/v1.5/tr.json/translate?lang=en-ru&key=trnsl.1.1.20181223T210433Z.361ff973b9abaaa1.4c419ee8e5989f4c18f5039d5049b5a5d7b398d7"
 
 func getJoke() string {
 	c := http.Client{}
@@ -41,7 +45,27 @@ func getJoke() string {
 	if err != nil {
 		return "Joke error"
 	}
-	return joke.Value.Joke
+	return tjoke.Value.Joke
+
+}
+
+func getTranslate() string {
+	sjoke := getJoke()
+	c := http.Client{}
+        transURL := WebTranslateURL+"&txt="+sjoke
+	resp, err := c.Get(transURL)
+	if err != nil {
+		return "Переводчик API not responding"
+	}
+	defer resp.Body.Close()
+	body, _ := ioutil.ReadAll(resp.Body)
+	tjoke := string{}
+	err = json.Unmarshal(body, &tjoke)
+	if err != nil {
+		return "Joke error"
+	}
+	return tjoke.Value
+        
 
 }
 
@@ -74,6 +98,10 @@ func main() {
 		case "Get Прикол" :
 			//Если пользователь нажал на кнопку то придет сообщение Get Joke
 		        message = tgbotapi.NewMessage(update.Message.Chat.ID, getJoke())
+		case "Прикол на русском" :
+			//Если пользователь нажал на кнопку то придет сообщение Get Joke
+		        message = tgbotapi.NewMessage(update.Message.Chat.ID, getTranslate())
+
 		default:
 			message = tgbotapi.NewMessage(update.Message.Chat.ID, `Press "Get Joke" to receive joke`)
 		}
