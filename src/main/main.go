@@ -60,7 +60,8 @@ func getTranslate() string {
 	defer resp.Body.Close()
 	body, _ := ioutil.ReadAll(resp.Body)
 	var tjoke string
-	err = json.Unmarshal(body, &tjoke)
+	//err = json.Unmarshal(body, &tjoke)
+        tjoke = resp.Body.String()
 	if err != nil {
 		return "Joke error"
 	}
