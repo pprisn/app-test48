@@ -53,18 +53,18 @@ func getTranslate() string {
 	sjoke := getJoke()
 	c := http.Client{}
         transURL := WebTranslateURL+"&txt="+sjoke
-	resp, err := c.Post(transURL)
+	resp, err := c.Get(transURL)
 	if err != nil {
 		return "Переводчик API not responding"
 	}
 	defer resp.Body.Close()
 	body, _ := ioutil.ReadAll(resp.Body)
-	tjoke := []string{}
+	var tjoke string
 	err = json.Unmarshal(body, &tjoke)
 	if err != nil {
 		return "Joke error"
 	}
-	return tjoke.Value
+	return tjoke
         
 
 }
