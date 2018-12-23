@@ -7,7 +7,6 @@ import (
 	"log"
 	"net/http"
 	"os"
-	"strings"
 )
 // для вендоринга используется GB
 // сборка проекта gb build
