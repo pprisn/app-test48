@@ -85,6 +85,7 @@ func getTranslate() string {
 
 	jsonValue, _ := json.Marshal(values)
         resp, err := c.Post(WebTranslateURL, "application/x-www-form-urlencoded", bytes.NewBuffer(jsonValue))
+	log.Fatal(jsonValue)
 	if err != nil {
 		return "Переводчик API not responding"
 	}
