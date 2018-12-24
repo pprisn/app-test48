@@ -68,7 +68,7 @@ func getJoke() string {
 func getTranslate() string {
 	sjoke := getJoke()
 	c := http.Client{}
-        transURL := WebTranslateURL+Keyyandex+"&txt="+sjoke
+        transURL := WebTranslateURL+Keyyandex+"&text="+sjoke
 	resp, err := c.Get(transURL)
 	if err != nil {
 		return "Переводчик API not responding"
@@ -78,8 +78,7 @@ func getTranslate() string {
         tjoke := TranslateJoke{}
 	err = json.Unmarshal(body, &tjoke)
 	if err != nil {
-		log.Printf("Unmarshal error: %+v",tjoke)
-		return "Unmarshal error"
+		return "Unmarshal error"+tjoke.Text
 	}
 	return tjoke.Text
         
