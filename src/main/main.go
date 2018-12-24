@@ -119,7 +119,9 @@ func main() {
 	//Запускаем сервер через горутину
 	go http.ListenAndServe(":"+port, nil)
 
-	var validCASE = regexp.MustCompile(`(?m)(^ops[0-9]{6})|(^OPS[0-9]{6})$`)
+	//Регулярное выражение для запроса данных по объекту индекс ОПС
+	var validCASE = regexp.MustCompile(`(?m)(^ops[0-9]{6})|(^OPS[0-9]{6})|(^Ops[0-9]{6})|(^Опс[0-9]{6})|(^ОПС[0-9]{6})$`)
+
 	// Читаем данные из канала updates
 	for update := range updates {
 		var message tgbotapi.MessageConfig
@@ -134,9 +136,9 @@ func main() {
 		default:
 			if validCASE.MatchString(update.Message.Text) {
 				//Если пользователь выполнил запрос opsINDEX
-				message = tgbotapi.NewMessage(update.Message.Chat.ID, "Это почтовый индекс "+update.Message.Text)
+				message = tgbotapi.NewMessage(update.Message.Chat.ID, "Вы запросили данные о почтовом отделении "+update.Message.Text)
 			} else {
-			message = tgbotapi.NewMessage(update.Message.Chat.ID, `Press "Get Joke" to receive joke`)
+				message = tgbotapi.NewMessage(update.Message.Chat.ID, `Press "Get Joke" to receive joke`)
 			}
 		}
 		// В ответном сообщении бота просим показать клавиатуре
