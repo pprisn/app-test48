@@ -122,7 +122,7 @@ func main() {
 	//Регулярное выражение для запроса данных по объекту индекс ОПС
 	var validCASE = regexp.MustCompile(`(?m)(^ops[0-9]{6})|(^OPS[0-9]{6})|(^Ops[0-9]{6})|(^Опс[0-9]{6})|(^ОПС[0-9]{6})$`)
 
-	// Читаем данные из канала updates
+	// Читаем данные из канала updates и выполняем соответсвующие им действия
 	for update := range updates {
 		var message tgbotapi.MessageConfig
 		log.Println("received text: ", update.Message.Text)
@@ -137,6 +137,7 @@ func main() {
 			if validCASE.MatchString(update.Message.Text) {
 				//Если пользователь выполнил запрос opsINDEX
 				message = tgbotapi.NewMessage(update.Message.Chat.ID, "Вы запросили данные о почтовом отделении "+update.Message.Text)
+				log.Printf("Запрос данных %s", update.Message.Text)
 			} else {
 				message = tgbotapi.NewMessage(update.Message.Chat.ID, `Press "Get Joke" to receive joke`)
 			}
