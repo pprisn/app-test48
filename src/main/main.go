@@ -78,9 +78,9 @@ func getTranslate() string {
         tjoke := TranslateJoke{}
 	err = json.Unmarshal(body, &tjoke)
 	if err != nil {
-		return "Unmarshal error"+tjoke.text
+		return "Unmarshal error"+tjoke.Text
 	}
-	return tjoke.text
+	return tjoke.Text
         
 
 }
