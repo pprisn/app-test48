@@ -50,7 +50,6 @@ func init() {
 
 const WebhookURL = "https://app-test48.herokuapp.com/"
 
-//const WebTranslateURL = "https://translate.yandex.net/api/v1.5/tr.json/translate?lang=en-ru&key="
 const WebTranslateURL = "https://translate.yandex.net/api/v1.5/tr.json/translate"
 
 func getJoke() string {
@@ -73,29 +72,12 @@ func getJoke() string {
 func getTranslate() string {
 	sjoke := getJoke()
 	c := http.Client{}
-       // transURL := WebTranslateURL+Keyyandex+"&text=Hello, next joke "+sjoke
-	//resp, err := c.Get(transURL)
-	//if err != nil {
-//		return "Переводчик API not responding"
-//	}
-
-	// выполним POST запрос
-	// values := map[string]string{"lang": "en-ru", 
-        //                             "key": Keyyandex, 
-        //                             "text": sjoke,}
-
-	//jsonValue, _ := json.Marshal(values)
 	lang := "en-ru"
         builtParams := url.Values{"key": {Keyyandex}, "lang": {lang}, "text": {sjoke}, "options": {"1"}}
 	resp, err := c.PostForm(WebTranslateURL, builtParams)
 	
-       // if err != nil {
-//		return nil, errors.Wrap(err, errMsg)
-//	}
-//        resp, err := c.Post(WebTranslateURL, "application/x-www-form-urlencoded", bytes.NewBuffer(jsonValue))
-//	log.Fatal(values)
 	if err != nil {
-		return "Переводчик API not responding"
+		return "Переводчик yandex API not responding..."
 	}
 	defer resp.Body.Close()
 	
