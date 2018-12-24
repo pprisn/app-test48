@@ -2,8 +2,9 @@ package main
 
 import (
 	"fmt"
-	"bytes"
+//	"bytes"
 	"encoding/json"
+        "net/url"
 	tgbotapi "gopkg.in/telegram-bot-api.v4"
 	"io/ioutil"
 	"log"
@@ -79,13 +80,20 @@ func getTranslate() string {
 //	}
 
 	// выполним POST запрос
-	 values := map[string]string{"lang": "en-ru", 
-                                     "key": Keyyandex, 
-                                     "text": sjoke,}
+	// values := map[string]string{"lang": "en-ru", 
+        //                             "key": Keyyandex, 
+        //                             "text": sjoke,}
 
-	jsonValue, _ := json.Marshal(values)
-        resp, err := c.Post(WebTranslateURL, "application/x-www-form-urlencoded", bytes.NewBuffer(jsonValue))
-	log.Fatal(values)
+	//jsonValue, _ := json.Marshal(values)
+	lang := "en-ru"
+        builtParams := url.Values{"key": {Keyyandex}, "lang": {lang}, "text": {sjoke}, "options": {"1"}}
+	resp, err := c.PostForm(WebTranslateURL, builtParams)
+	
+       // if err != nil {
+//		return nil, errors.Wrap(err, errMsg)
+//	}
+//        resp, err := c.Post(WebTranslateURL, "application/x-www-form-urlencoded", bytes.NewBuffer(jsonValue))
+//	log.Fatal(values)
 	if err != nil {
 		return "Переводчик API not responding"
 	}
