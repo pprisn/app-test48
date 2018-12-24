@@ -33,6 +33,15 @@ var buttons = []tgbotapi.KeyboardButton{
 	tgbotapi.KeyboardButton{Text: "Get Прикол"},
         tgbotapi.KeyboardButton{Text: "Прикол на русском"},	
 }
+
+var Keytg string
+var Keyyandex string
+
+func init() {
+        Keytg = os.Getenv("KEYTG")
+	Keyyandex = os.Getenv("KEYYANDEX")
+}
+
 //При старте приложения, оно скажет телеграму ходить с обновлениями по этому URL
 
 const WebhookURL = "https://app-test48.herokuapp.com/"
@@ -71,15 +80,11 @@ func getTranslate() string {
 	if err != nil {
 		return "Joke error"
 	}
-	return tjoke
+	return tjoke.Text[0]
         
 
 }
 
-func init() {
-        Keytg := os.Getenv("KEYTG")
-	Keyyandex : os.Getenv("KEYYANDEX")
-}
 func main() {
         // Heroku прокидывает порт для приложения в переменную окружения PORT
         port := os.Getenv("PORT")
