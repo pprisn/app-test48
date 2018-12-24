@@ -21,6 +21,14 @@ type JokeResponse struct {
 	Value Joke   `json:"value"`
 }
 
+type TranslateJoke struct {
+	CODE   uint32 `json: "code"`
+	Lang string `json: "lang"`
+	Text []string `json: "text"`
+
+}
+
+
 var buttons = []tgbotapi.KeyboardButton{
 	tgbotapi.KeyboardButton{Text: "Get Прикол"},
         tgbotapi.KeyboardButton{Text: "Прикол на русском"},	
@@ -30,7 +38,7 @@ var buttons = []tgbotapi.KeyboardButton{
 const WebhookURL = "https://app-test48.herokuapp.com/"
 
 //const Key = "trnsl.1.1.20181223T210433Z.361ff973b9abaaa1.4c419ee8e5989f4c18f5039d5049b5a5d7b398d7"
-const WebTranslateURL = "https://translate.yandex.net/api/v1.5/tr.json/translate?lang=en-ru&key=trnsl.1.1.20181223T210433Z.361ff973b9abaaa1.4c419ee8e5989f4c18f5039d5049b5a5d7b398d7"
+const WebTranslateURL = "https://translate.yandex.net/api/v1.5/tr.json/translate?lang=en-ru&key="
 
 func getJoke() string {
 	c := http.Client{}
@@ -52,15 +60,15 @@ func getJoke() string {
 func getTranslate() string {
 	sjoke := getJoke()
 	c := http.Client{}
-        transURL := WebTranslateURL+"&txt="+sjoke
+        transURL := WebTranslateURL+Keyyandex+"&txt="+sjoke
 	resp, err := c.Get(transURL)
 	if err != nil {
 		return "Переводчик API not responding"
 	}
 	defer resp.Body.Close()
 	body, _ := ioutil.ReadAll(resp.Body)
-	var tjoke string
-	//err = json.Unmarshal(body, &tjoke)
+        tjoke := TranslateJoke{}
+	err = json.Unmarshal(body, &tjoke)
         tjoke = string(body)
 	if err != nil {
 		return "Joke error"
@@ -73,8 +81,10 @@ func getTranslate() string {
 func main() {
         // Heroku прокидывает порт для приложения в переменную окружения PORT
         port := os.Getenv("PORT")
-	bot, err := tgbotapi.NewBotAPI("721794920:AAG6xnxtZHmCC-u6-55-LMAVnIakqOjUqv0")
-        //721794920:AAG6xnxtZHmCC-u6-55-LMAVnIakqOjUqv0
+        Keytg := os.Getenv("KEYTG")
+	Keyyandex : os.Getenv("KEYYANDEX")
+	bot, err := tgbotapi.NewBotAPI(Keytg)
+        //721794920x:AAG6xnxtZHmCC-u6-55-LMAVnIakqOjUqv0
         if err != nil {
 		log.Fatal(err)
 	}
