@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"bytes"
 	"encoding/json"
 	tgbotapi "gopkg.in/telegram-bot-api.v4"
 	"io/ioutil"
@@ -48,7 +49,8 @@ func init() {
 
 const WebhookURL = "https://app-test48.herokuapp.com/"
 
-const WebTranslateURL = "https://translate.yandex.net/api/v1.5/tr.json/translate?lang=en-ru&key="
+//const WebTranslateURL = "https://translate.yandex.net/api/v1.5/tr.json/translate?lang=en-ru&key="
+const WebTranslateURL = "https://translate.yandex.net/api/v1.5/tr.json/translate"
 
 func getJoke() string {
 	c := http.Client{}
@@ -70,13 +72,25 @@ func getJoke() string {
 func getTranslate() string {
 	sjoke := getJoke()
 	c := http.Client{}
-        transURL := WebTranslateURL+Keyyandex+"&text=Hello, next joke "+sjoke
-	resp, err := c.Get(transURL)
+       // transURL := WebTranslateURL+Keyyandex+"&text=Hello, next joke "+sjoke
+	//resp, err := c.Get(transURL)
+	//if err != nil {
+//		return "Переводчик API not responding"
+//	}
+
+	// выполним POST запрос
+	 values := map[string]string{"lang": "en-ru", 
+                                     "key": Keyyandex, 
+                                     "text": sjoke,}
+
+	jsonValue, _ := json.Marshal(values)
+        resp, err := c.Post(WebTranslateURL, "application/json", bytes.NewBuffer(jsonValue))
 	if err != nil {
 		return "Переводчик API not responding"
 	}
 	defer resp.Body.Close()
-	body, _ := ioutil.ReadAll(resp.Body)
+	
+        body, _ := ioutil.ReadAll(resp.Body)
         tjoke := TranslateJoke{}
 	err = json.Unmarshal(body, &tjoke)
 	if err != nil {
