@@ -6,6 +6,7 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"strings"
 	"os"
 )
 // для вендоринга используется GB
@@ -78,9 +79,9 @@ func getTranslate() string {
         tjoke := TranslateJoke{}
 	err = json.Unmarshal(body, &tjoke)
 	if err != nil {
-		return "Unmarshal error"+tjoke.Text
+		return "Unmarshal error"+strings.Join(tjoke.Text[:],",")
 	}
-	return tjoke.Text
+	return strings.Join(tjoke.Text[:],",")
         
 
 }
