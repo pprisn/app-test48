@@ -69,7 +69,7 @@ func getJoke() string {
 func getTranslate() string {
 	sjoke := getJoke()
 	c := http.Client{}
-        transURL := WebTranslateURL+Keyyandex+"&text="+sjoke
+        transURL := WebTranslateURL+Keyyandex+"&text=Hello"
 	resp, err := c.Get(transURL)
 	if err != nil {
 		return "Переводчик API not responding"
