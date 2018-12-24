@@ -2,6 +2,8 @@ package main
 
 import (
 	"fmt"
+	"regexp"
+
 	//	"bytes"
 	"encoding/json"
 	"io/ioutil"
@@ -27,6 +29,7 @@ type JokeResponse struct {
 	Type  string `json:"type"`
 	Value Joke   `json:"value"`
 }
+
 //Структура данных ответа от https://translate.yandex.net/api/v1.5/tr.json/translate
 type TranslateJoke struct {
 	CODE uint32   `json: "code"`
@@ -105,17 +108,18 @@ func main() {
 	bot.Debug = true
 
 	log.Printf("Authorized on account %s", bot.Self.UserName)
-	
+
 	// устанавливаем привязку бота к сервису WebhookURL
 	_, err = bot.SetWebhook(tgbotapi.NewWebhook(WebhookURL))
 	if err != nil {
 		log.Fatal(err)
 	}
-        // Открываем канал для получения данных при обращении к сервису WebhookURL '/'
+	// Открываем канал для получения данных при обращении к сервису WebhookURL '/'
 	updates := bot.ListenForWebhook("/")
-	//Запускаем сервер через горутину 
+	//Запускаем сервер через горутину
 	go http.ListenAndServe(":"+port, nil)
 
+	var validCASE = regexp.MustCompile(`(?m)(^ops[0-9]{6})|(^OPS[0-9]{6})$`)
 	// Читаем данные из канала updates
 	for update := range updates {
 		var message tgbotapi.MessageConfig
@@ -127,11 +131,13 @@ func main() {
 		case "Прикол на русском":
 			//Если пользователь нажал на кнопку то придет сообщение Get Joke
 			message = tgbotapi.NewMessage(update.Message.Chat.ID, getTranslate())
-		case "^ops[0-9]{6}$":
-			//Если пользователь нажал на кнопку то придет сообщение Get Joke
-			message = tgbotapi.NewMessage(update.Message.Chat.ID, "Это почтовый индекс "+update.Message.Text)
 		default:
+			if validCASE.MatchString(update.Message.Text) {
+				//Если пользователь выполнил запрос opsINDEX
+				message = tgbotapi.NewMessage(update.Message.Chat.ID, "Это почтовый индекс "+update.Message.Text)
+			} else {
 			message = tgbotapi.NewMessage(update.Message.Chat.ID, `Press "Get Joke" to receive joke`)
+			}
 		}
 		// В ответном сообщении бота просим показать клавиатуре
 		message.ReplyMarkup = tgbotapi.NewReplyKeyboard(buttons)
