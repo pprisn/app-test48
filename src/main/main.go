@@ -80,7 +80,7 @@ func getTranslate() string {
         tjoke := TranslateJoke{}
 	err = json.Unmarshal(body, &tjoke)
 	if err != nil {
-		return fmt.Printf("Unmarshal error %+v \n",err)
+		return "Unmarshal error"+fmt.Println(err)
 	}
 	return strings.Join(tjoke.Text[:],",")
         
