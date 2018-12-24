@@ -67,7 +67,7 @@ func getJoke() string {
 }
 
 func getTranslate() string {
-	sjoke := getJoke()
+	//sjoke := getJoke()
 	c := http.Client{}
         transURL := WebTranslateURL+Keyyandex+"&text=Hello"
 	resp, err := c.Get(transURL)
