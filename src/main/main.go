@@ -24,7 +24,7 @@ type JokeResponse struct {
 type TranslateJoke struct {
 	CODE uint32 `json: "code"`
 	Lang string `json: "lang"`
-	Text string `json: "text"`
+	Text []string `json: "text"`
 
 }
 
@@ -78,9 +78,9 @@ func getTranslate() string {
         tjoke := TranslateJoke{}
 	err = json.Unmarshal(body, &tjoke)
 	if err != nil {
-		return "Unmarshal error"+tjoke.Text
+		return "Unmarshal error"+tjoke.text
 	}
-	return tjoke.Text
+	return tjoke.text
         
 
 }
