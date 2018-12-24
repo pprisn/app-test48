@@ -37,7 +37,7 @@ var buttons = []tgbotapi.KeyboardButton{
 
 const WebhookURL = "https://app-test48.herokuapp.com/"
 
-//const Key = "trnsl.1.1.20181223T210433Z.361ff973b9abaaa1.4c419ee8e5989f4c18f5039d5049b5a5d7b398d7"
+//const Key = "Private key c419ee8e5989f4c18f5039d5049b5a5d7b398d7"
 const WebTranslateURL = "https://translate.yandex.net/api/v1.5/tr.json/translate?lang=en-ru&key="
 
 func getJoke() string {
@@ -84,7 +84,7 @@ func main() {
         Keytg := os.Getenv("KEYTG")
 	Keyyandex : os.Getenv("KEYYANDEX")
 	bot, err := tgbotapi.NewBotAPI(Keytg)
-        //721794920x:AAG6xnxtZHmCC-u6-55-LMAVnIakqOjUqv0
+        //Privat key telegram XXXXxxxx:kqOjUqv0
         if err != nil {
 		log.Fatal(err)
 	}
