@@ -1,16 +1,14 @@
 package main
 
 import (
-	"fmt"
-	"regexp"
-
-	//	"bytes"
 	"encoding/json"
+	"fmt"
 	"io/ioutil"
 	"log"
 	"net/http"
 	"net/url"
 	"os"
+	"regexp"
 	"strings"
 	"time"
 
@@ -163,8 +161,7 @@ func main() {
 				// Поступил запрос трэк номера РегионКурьер Липецк
 				message = tgbotapi.NewMessage(update.Message.Chat.ID, req2rkLip(string(update.Message.Text)))
 			} else {
-				message = tgbotapi.NewMessage(update.Message.Chat.ID, `Уточните свой запрос: 
-				Для получения трэк номера РегионКурьер Липецк введите rklip999999999999999 `)
+				message = tgbotapi.NewMessage(update.Message.Chat.ID, `Уточните ШКИ отправления.`)
 			}
 		}
 		// В ответном сообщении бота просим показать клавиатуре
