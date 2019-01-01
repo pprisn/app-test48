@@ -87,7 +87,7 @@ func req2rkLip(barcode string) string {
 
 	htmlData, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
-		Delivstatus = append(Delivstatus, fmt.Sprintf("Извините, что-то пошло не так, повторите пож. попытку. \n"))
+		Delivstatus = append(Delivstatus, fmt.Sprintf("Извините, что-то пошло не так, повторите пожалуйста попытку. \n"))
 		sDelivstatus = strings.Join(Delivstatus, ";")
 		return sDelivstatus
 		//log.Fatal(err)
@@ -105,7 +105,7 @@ func req2rkLip(barcode string) string {
 	}
 	err_trk := json.Unmarshal(htmlData, &trk)
 	if err_trk != nil {
-		Delivstatus = append(Delivstatus, fmt.Sprintf("Извините,API РегионКурьера изменилось, а бот pprisn_bot не в курсе, вы можете сообщить об этом pprisn@yandex.ru."))
+		Delivstatus = append(Delivstatus, fmt.Sprintf("Извините, API РегионКурьера изменилось, а pprisn_bot не в курсе, вы можете сообщить о проблеме по адресу pprisn@yandex.ru."))
 		sDelivstatus = strings.Join(Delivstatus, "\n")
 		return sDelivstatus
 		//log.Fatal(err_trk)
@@ -113,8 +113,8 @@ func req2rkLip(barcode string) string {
 
 	if trk[0].Barcode == "" {
 
-		Delivstatus = append(Delivstatus, fmt.Sprintf("Отправление с ШКИ %v не найдено\t", barcode))
-		Delivstatus = append(Delivstatus, fmt.Sprintf("Уточните штрих-кодовый идентификатор"))
+		Delivstatus = append(Delivstatus, fmt.Sprintf("Отправление с ШПИ %v не найдено\t", barcode))
+		Delivstatus = append(Delivstatus, fmt.Sprintf("Уточните ШПИ, пожалуйста, и повторите запрос."))
 		sDelivstatus = strings.Join(Delivstatus, "\n")
 
 	} else {

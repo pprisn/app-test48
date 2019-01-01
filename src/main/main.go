@@ -134,10 +134,8 @@ func main() {
 	var validCASE = regexp.MustCompile(`(?m)(^ops[0-9]{6})|(^OPS[0-9]{6})|(^Ops[0-9]{6})|(^Опс[0-9]{6})|(^ОПС[0-9]{6})$`)
 	//Регулярное выражение для запроса данных трек номера Регион курьер Липецк 15 или 17 символов 000020004000085
 	var validRKLIP = regexp.MustCompile(`(?m)(?m)^(([0-9]{15})|([0-9]{17}))$`)
-
 	//var keywd string
 	var sWd string
-
 	// Читаем данные из канала updates и выполняем соответсвующие им действия
 	for update := range updates {
 		var message tgbotapi.MessageConfig
@@ -161,7 +159,7 @@ func main() {
 				// Поступил запрос трэк номера РегионКурьер Липецк
 				message = tgbotapi.NewMessage(update.Message.Chat.ID, req2rkLip(string(update.Message.Text)))
 			} else {
-				message = tgbotapi.NewMessage(update.Message.Chat.ID, `Уточните ШКИ отправления.`)
+				message = tgbotapi.NewMessage(update.Message.Chat.ID, `Уточните Штриховой Почтовый Идентификатор, пожалуйста. И повторите запрос.`)
 			}
 		}
 		// В ответном сообщении бота просим показать клавиатуре
