@@ -8,6 +8,7 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"os"
 	"regexp"
 	"strings"
 )
@@ -47,15 +48,19 @@ func req2rkLip(barcode string) string {
 	var Delivstatus []string
 	var sDelivstatus string
 	sDelivstatus = ""
+	sudkey := os.Getenv("SUDKEY")
+	sudcrt := os.Getenv("SUDCRT")
+	cacrt := []byte(os.Getenv("CACRT"))
 
-	caCert, err := ioutil.ReadFile("ca.crt")
-	if err != nil {
-		log.Fatal(err)
-	}
+	//	caCert, err := ioutil.ReadFile("ca.crt")
+	//	if err != nil {
+	//		log.Fatal(err)
+	//	}
 	caCertPool := x509.NewCertPool()
-	caCertPool.AppendCertsFromPEM(caCert)
-
-	cert, err := tls.LoadX509KeyPair("sud.crt", "sud.key")
+	//	caCertPool.AppendCertsFromPEM(caCert)
+	caCertPool.AppendCertsFromPEM(cacrt)
+	//cert, err := tls.LoadX509KeyPair("sud.crt", "sud.key")
+	cert, err := tls.LoadX509KeyPair(sudcrt, sudkey)
 	if err != nil {
 		log.Fatal(err)
 	}
