@@ -105,27 +105,27 @@ func req2rkLip(barcode string) string {
 	}
 	err_trk := json.Unmarshal(htmlData, &trk)
 	if err_trk != nil {
-		Delivstatus = append(Delivstatus, fmt.Sprintf("Извините,API РегионКурьера изменилось, а бот pprisn_bot не в курсе, вы можете сообщить об этом pprisn@yandex.ru. \n"))
-		sDelivstatus = strings.Join(Delivstatus, ";")
+		Delivstatus = append(Delivstatus, fmt.Sprintf("Извините,API РегионКурьера изменилось, а бот pprisn_bot не в курсе, вы можете сообщить об этом pprisn@yandex.ru."))
+		sDelivstatus = strings.Join(Delivstatus, "\n")
 		return sDelivstatus
 		//log.Fatal(err_trk)
 	}
 
 	if trk[0].Barcode == "" {
 
-		Delivstatus = append(Delivstatus, fmt.Sprintf("Отправление с ШКИ %v не найдено\t\n", barcode))
-		Delivstatus = append(Delivstatus, fmt.Sprintf("Уточните штрих-кодовый идентификатор\n"))
-		sDelivstatus = strings.Join(Delivstatus, ";")
+		Delivstatus = append(Delivstatus, fmt.Sprintf("Отправление с ШКИ %v не найдено\t", barcode))
+		Delivstatus = append(Delivstatus, fmt.Sprintf("Уточните штрих-кодовый идентификатор"))
+		sDelivstatus = strings.Join(Delivstatus, "\n")
 
 	} else {
-		Delivstatus = append(Delivstatus, fmt.Sprintf("Штрих код           %v\t\n", trk[0].Barcode))
-		Delivstatus = append(Delivstatus, fmt.Sprintf("Вложение            %v\t\n", trk[0].Attachment))
-		Delivstatus = append(Delivstatus, fmt.Sprintf("Почтовое отделение  %v\t\n", trk[0].Postoffice))
-		Delivstatus = append(Delivstatus, fmt.Sprintf("Доставочный участок %v\t\n", trk[0].DeliverySite))
-		Delivstatus = append(Delivstatus, fmt.Sprintf("Дата приема         %v\t\n", trk[0].ReceiptDate))
-		Delivstatus = append(Delivstatus, fmt.Sprintf("Статус доставки     %v\t\n", Delivstat_names[trk[0].DeliveryStatus]))
-		Delivstatus = append(Delivstatus, fmt.Sprintf("Дата доставки       %v\t\n", trk[0].DeliveryDate))
-		sDelivstatus = strings.Join(Delivstatus, ";")
+		Delivstatus = append(Delivstatus, fmt.Sprintf("Штрих код           %v\t", trk[0].Barcode))
+		Delivstatus = append(Delivstatus, fmt.Sprintf("Вложение            %v\t", trk[0].Attachment))
+		Delivstatus = append(Delivstatus, fmt.Sprintf("Почтовое отделение  %v\t", trk[0].Postoffice))
+		Delivstatus = append(Delivstatus, fmt.Sprintf("Доставочный участок %v\t", trk[0].DeliverySite))
+		Delivstatus = append(Delivstatus, fmt.Sprintf("Дата приема         %v\t", trk[0].ReceiptDate))
+		Delivstatus = append(Delivstatus, fmt.Sprintf("Статус доставки     %v\t", Delivstat_names[trk[0].DeliveryStatus]))
+		Delivstatus = append(Delivstatus, fmt.Sprintf("Дата доставки       %v\t", trk[0].DeliveryDate))
+		sDelivstatus = strings.Join(Delivstatus, "\n")
 		//fmt.Printf(string(htmlData))
 	}
 
