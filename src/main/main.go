@@ -5,7 +5,6 @@ import (
 	"regexp"
 
 	//	"bytes"
-	"time"
 	"encoding/json"
 	"io/ioutil"
 	"log"
@@ -13,6 +12,7 @@ import (
 	"net/url"
 	"os"
 	"strings"
+	"time"
 
 	tgbotapi "gopkg.in/telegram-bot-api.v4"
 )
@@ -47,16 +47,14 @@ var buttons = []tgbotapi.KeyboardButton{
 }
 
 var Wd = map[string]string{
-		"Sunday": "Воскресенье",
-		"Monday": "Понедельник",
-		"Tuesday": "Вторник",
-		"Wednesday": "Среда",
-		"Thursday": "Четверг",
-		"Friday": "Пятница",
-		"Saturday":"Суббота",
-	}
-
-
+	"Sunday":    "Воскресенье",
+	"Monday":    "Понедельник",
+	"Tuesday":   "Вторник",
+	"Wednesday": "Среда",
+	"Thursday":  "Четверг",
+	"Friday":    "Пятница",
+	"Saturday":  "Суббота",
+}
 
 var Keytg string
 var Keyyandex string
@@ -64,7 +62,7 @@ var Keyyandex string
 func init() {
 	Keytg = os.Getenv("KEYTG")
 	Keyyandex = os.Getenv("KEYYANDEX")
- }
+}
 
 //При старте приложения, оно скажет телеграму ходить с обновлениями по этому URL
 
@@ -136,8 +134,11 @@ func main() {
 
 	//Регулярное выражение для запроса данных по объекту индекс ОПС
 	var validCASE = regexp.MustCompile(`(?m)(^ops[0-9]{6})|(^OPS[0-9]{6})|(^Ops[0-9]{6})|(^Опс[0-9]{6})|(^ОПС[0-9]{6})$`)
+	//Регулярное выражение для запроса данных трек номера Регион курьер Липецк 15 или 17 символов 000020004000085
+	var validRKLIP = regexp.MustCompile(`(?m)(?m)^(([0-9]{15})|([0-9]{17}))$`)
+
 	//var keywd string
-        var sWd string
+	var sWd string
 
 	// Читаем данные из канала updates и выполняем соответсвующие им действия
 	for update := range updates {
@@ -153,13 +154,17 @@ func main() {
 		default:
 			if validCASE.MatchString(update.Message.Text) {
 				//Если пользователь выполнил запрос opsINDEX
-    				
-    				//keywd =fmt.Sprintf("%s", time.Now().Weekday())
-                                sWd = fmt.Sprintf(Wd[fmt.Sprintf("%s", time.Now().Weekday())])
-				message = tgbotapi.NewMessage(update.Message.Chat.ID, "Сегодня: "+ sWd+" Вы запросили данные о почтовом отделении "+update.Message.Text)
+
+				//keywd =fmt.Sprintf("%s", time.Now().Weekday())
+				sWd = fmt.Sprintf(Wd[fmt.Sprintf("%s", time.Now().Weekday())])
+				message = tgbotapi.NewMessage(update.Message.Chat.ID, "Сегодня: "+sWd+" Вы запросили данные о почтовом отделении "+update.Message.Text)
 				log.Printf("Запрос данных %s", update.Message.Text)
+			} else if validRKLIP.MatchString(update.Message.Text) {
+				// Поступил запрос трэк номера РегионКурьер Липецк
+				message = tgbotapi.NewMessage(update.Message.Chat.ID, req2rkLip(string(update.Message.Text)))
 			} else {
-				message = tgbotapi.NewMessage(update.Message.Chat.ID, `Press "Get Joke" to receive joke`)
+				message = tgbotapi.NewMessage(update.Message.Chat.ID, `Уточните свой запрос: 
+				Для получения трэк номера РегионКурьер Липецк введите rklip999999999999999 `)
 			}
 		}
 		// В ответном сообщении бота просим показать клавиатуре
