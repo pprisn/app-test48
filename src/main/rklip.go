@@ -60,7 +60,7 @@ func req2rkLip(barcode string) string {
 	//	caCertPool.AppendCertsFromPEM(caCert)
 	caCertPool.AppendCertsFromPEM(cacrt)
 	//cert, err := tls.LoadX509KeyPair("sud.crt", "sud.key")
-	cert, err := tls.LoadX509KeyPair(sudcrt, sudkey)
+	cert, err := tls.X509KeyPair([]byte(sudcrt), []byte(sudkey))
 	if err != nil {
 		log.Fatal(err)
 	}
