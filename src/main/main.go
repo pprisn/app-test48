@@ -167,7 +167,7 @@ func main() {
 				message = tgbotapi.NewMessage(update.Message.Chat.ID, req2rkLip(string(update.Message.Text)))
 			} else if validRUSSIANPOST.MatchString(update.Message.Text) == true {
 				// Поступил запрос трэк номера RUSSIANPOST
-				message = tgbotapi.NewMessage(update.Message.Chat.ID, req2russianpost(string(update.Message.Text)))
+				message = tgbotapi.NewMessage(update.Message.Chat.ID, req2russianpost(strings.ToUpper(string(update.Message.Text))))
 			} else if validTranslate.MatchString(update.Message.Text) == true {
 				// Поступил запрос текста на английском - переведем его.
 				message = tgbotapi.NewMessage(update.Message.Chat.ID, getTranslate(update.Message.Text))
