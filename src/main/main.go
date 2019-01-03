@@ -141,6 +141,7 @@ func main() {
 	//Регулярное выражение для запроса данных трек номера Регион курьер Липецк 15 или 17 символов 000020004000085
 	var validRKLIP = regexp.MustCompile(`(?m)^(([0-9]{15})|([0-9]{17}))$`)
 	var validTranslate = regexp.MustCompile(`(?m)(^[a-z-A-Z].*$)`)
+	var validRUSSIANPOST = regexp.MustCompile(`(?m)^(([0-9]{14})|([0-9A-Z]{13}))$`)
 	//var keywd string
 	var sWd string
 	// Читаем данные из канала updates и выполняем соответсвующие им действия
@@ -164,6 +165,9 @@ func main() {
 			} else if validRKLIP.MatchString(update.Message.Text) == true {
 				// Поступил запрос трэк номера РегионКурьер Липецк
 				message = tgbotapi.NewMessage(update.Message.Chat.ID, req2rkLip(string(update.Message.Text)))
+			} else if validRUSSIANPOST.MatchString(update.Message.Text) == true {
+				// Поступил запрос трэк номера RUSSIANPOST
+				message = tgbotapi.NewMessage(update.Message.Chat.ID, req2russianpost(string(update.Message.Text)))
 			} else if validTranslate.MatchString(update.Message.Text) == true {
 				// Поступил запрос текста на английском - переведем его.
 				message = tgbotapi.NewMessage(update.Message.Chat.ID, getTranslate(update.Message.Text))
