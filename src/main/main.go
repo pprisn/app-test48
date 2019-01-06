@@ -19,12 +19,16 @@ import (
 // сборка проекта gb build
 // установка зависимостей gb vendor fecth gopkg.in/telegram-bot-api.v4
 // установка зависимостей из манифеста gb vendor restore
+
 //структура данных ответа от api.icndb.com
 // { "type": "success", "value": { "id": 563, "joke": "Chuck Norris causes the Windows Blue Screen of Death.", "categories": ["nerdy"] } }
+// Описание вложенной структуры ответа ..{ "id": 563, "joke": "Chuck
 type Joke struct {
 	ID   uint32 `json: "id"`
 	Joke string `json: "joke"`
 }
+
+// Описание начала структуры ответа  { "type": "success", "value": {..
 type JokeResponse struct {
 	Type  string `json:"type"`
 	Value Joke   `json:"value"`
@@ -44,6 +48,7 @@ var buttons = []tgbotapi.KeyboardButton{
 	tgbotapi.KeyboardButton{Text: "Прикол на русском"},
 }
 
+// Карта соответствия английских и русских наименований дней недели
 var Wd = map[string]string{
 	"Sunday":    "Воскресенье",
 	"Monday":    "Понедельник",
@@ -54,9 +59,13 @@ var Wd = map[string]string{
 	"Saturday":  "Суббота",
 }
 
+// Keytg ключ бота Telegramm
 var Keytg string
+
+// Keytg ключ сервиса на yandex
 var Keyyandex string
 
+//Проинициализируем ключи Keytg Keyyandex
 func init() {
 	Keytg = os.Getenv("KEYTG")
 	Keyyandex = os.Getenv("KEYYANDEX")
@@ -64,9 +73,13 @@ func init() {
 
 //При старте приложения, оно скажет телеграму ходить с обновлениями по этому URL
 
+//  WebhookURL url сервера бота
 const WebhookURL = "https://app-test48.herokuapp.com/"
+
+// WebTranslateURL url сервиса переводчика на русский с английского
 const WebTranslateURL = "https://translate.yandex.net/api/v1.5/tr.json/translate"
 
+// Функция getJoke() string , возвращает строку с шуткой, полученной от сервиса  http://api.icndb.com/jokes/random?limitTo=[nerdy]
 func getJoke() string {
 	c := http.Client{}
 	resp, err := c.Get("http://api.icndb.com/jokes/random?limitTo=[nerdy]")
@@ -83,6 +96,8 @@ func getJoke() string {
 	return joke.Value.Joke
 }
 
+// Функция getTranslate(mytext string) string, переводит полученный английский текст на русский или если
+// текст отсутствует, получает очередную шутку и возвращает ее перевод на русском
 func getTranslate(mytext string) string {
 	var sjoke string
 	if mytext == "" {
@@ -113,8 +128,6 @@ func getTranslate(mytext string) string {
 }
 
 func main() {
-
-	var mystr = ""
 	// Heroku прокидывает порт для приложения в переменную окружения PORT
 	port := os.Getenv("PORT")
 
@@ -125,7 +138,6 @@ func main() {
 	}
 
 	bot.Debug = true
-
 	log.Printf("Authorized on account %s", bot.Self.UserName)
 
 	// устанавливаем привязку бота к сервису WebhookURL
@@ -160,7 +172,6 @@ func main() {
 		default:
 			if validCASE.MatchString(update.Message.Text) == true {
 				//Если пользователь выполнил запрос opsINDEX
-				//keywd =fmt.Sprintf("%s", time.Now().Weekday())
 				sWd = fmt.Sprintf(Wd[fmt.Sprintf("%s", time.Now().Weekday())])
 				message = tgbotapi.NewMessage(update.Message.Chat.ID, "Сегодня: "+sWd+" Вы запросили данные о почтовом отделении "+update.Message.Text)
 				log.Printf("Запрос данных %s", update.Message.Text)
@@ -169,8 +180,8 @@ func main() {
 				message = tgbotapi.NewMessage(update.Message.Chat.ID, req2rkLip(string(update.Message.Text)))
 			} else if validRUSSIANPOST.MatchString(update.Message.Text) == true {
 				// Поступил запрос трэк номера RUSSIANPOST
-				mystr = strings.ToUpper(string(update.Message.Text))
-				message = tgbotapi.NewMessage(update.Message.Chat.ID, req2russianpost(mystr))
+				//mystr = strings.ToUpper(string(update.Message.Text))
+				message = tgbotapi.NewMessage(update.Message.Chat.ID, req2russianpost(string(update.Message.Text)))
 			} else if validTranslate.MatchString(update.Message.Text) == true {
 				// Поступил запрос текста на английском - переведем его.
 				message = tgbotapi.NewMessage(update.Message.Chat.ID, getTranslate(update.Message.Text))

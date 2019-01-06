@@ -203,11 +203,9 @@ func req2russianpost(barcode string) string {
 
 	}
 
-	//fmt.Printf("%+v \n", envelope.Body.GetOperationHistoryResponse.OperationHistoryData)
-	//fmt.Println(len(string(htmlData)))
-
 	var Delivstatus []string
 	var sDelivstatus string
+	// Читаем все элементы массива тегов HistoryRecord []struct{...}
 	for i, rec := range envelope.Body.GetOperationHistoryResponse.OperationHistoryData.HistoryRecord {
 		if i == 0 {
 			Delivstatus = append(Delivstatus, fmt.Sprintf("%v Масса=%vгр.", rec.ItemParameters.ComplexItemName, rec.ItemParameters.Mass))

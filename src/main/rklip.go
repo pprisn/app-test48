@@ -14,7 +14,7 @@ import (
 )
 
 // Статусы доставки отправлений Регион Курьер
-var Delivstat_names = map[string]string{
+var Delivstatnames = map[string]string{
 	"dsLoaded":     "Загружено из файла",
 	"dsNew":        "Новое",
 	"dsToSend":     "К отправке",
@@ -123,7 +123,7 @@ func req2rkLip(barcode string) string {
 		Delivstatus = append(Delivstatus, fmt.Sprintf("Почтовое отделение  %v\t", trk[0].Postoffice))
 		Delivstatus = append(Delivstatus, fmt.Sprintf("Доставочный участок %v\t", trk[0].DeliverySite))
 		Delivstatus = append(Delivstatus, fmt.Sprintf("Дата приема         %v\t", trk[0].ReceiptDate))
-		Delivstatus = append(Delivstatus, fmt.Sprintf("Статус доставки     %v\t", Delivstat_names[trk[0].DeliveryStatus]))
+		Delivstatus = append(Delivstatus, fmt.Sprintf("Статус доставки     %v\t", Delivstatnames[trk[0].DeliveryStatus]))
 		Delivstatus = append(Delivstatus, fmt.Sprintf("Дата доставки       %v\t", trk[0].DeliveryDate))
 		sDelivstatus = strings.Join(Delivstatus, "\n")
 		//fmt.Printf(string(htmlData))
