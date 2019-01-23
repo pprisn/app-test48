@@ -8,6 +8,62 @@
 			"branch": "master"
 		},
 		{
+			"importpath": "golang.org/x/net/html",
+			"repository": "https://go.googlesource.com/net",
+			"revision": "ed066c81e75eba56dd9bd2139ade88125b855585",
+			"branch": "master",
+			"path": "/html"
+		},
+		{
+			"importpath": "golang.org/x/text/encoding",
+			"repository": "https://go.googlesource.com/text",
+			"revision": "e6919f6577db79269a6443b9dc46d18f2238fb5d",
+			"branch": "master",
+			"path": "/encoding"
+		},
+		{
+			"importpath": "golang.org/x/text/internal/language",
+			"repository": "https://go.googlesource.com/text",
+			"revision": "e6919f6577db79269a6443b9dc46d18f2238fb5d",
+			"branch": "master",
+			"path": "/internal/language"
+		},
+		{
+			"importpath": "golang.org/x/text/internal/tag",
+			"repository": "https://go.googlesource.com/text",
+			"revision": "e6919f6577db79269a6443b9dc46d18f2238fb5d",
+			"branch": "master",
+			"path": "/internal/tag"
+		},
+		{
+			"importpath": "golang.org/x/text/internal/utf8internal",
+			"repository": "https://go.googlesource.com/text",
+			"revision": "e6919f6577db79269a6443b9dc46d18f2238fb5d",
+			"branch": "master",
+			"path": "/internal/utf8internal"
+		},
+		{
+			"importpath": "golang.org/x/text/language",
+			"repository": "https://go.googlesource.com/text",
+			"revision": "e6919f6577db79269a6443b9dc46d18f2238fb5d",
+			"branch": "master",
+			"path": "/language"
+		},
+		{
+			"importpath": "golang.org/x/text/runes",
+			"repository": "https://go.googlesource.com/text",
+			"revision": "e6919f6577db79269a6443b9dc46d18f2238fb5d",
+			"branch": "master",
+			"path": "/runes"
+		},
+		{
+			"importpath": "golang.org/x/text/transform",
+			"repository": "https://go.googlesource.com/text",
+			"revision": "e6919f6577db79269a6443b9dc46d18f2238fb5d",
+			"branch": "master",
+			"path": "/transform"
+		},
+		{
 			"importpath": "gopkg.in/telegram-bot-api.v4",
 			"repository": "https://gopkg.in/telegram-bot-api.v4",
 			"revision": "9860bdfd3a171ceafb6e1eafa163482a6ef92643",
