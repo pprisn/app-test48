@@ -161,6 +161,7 @@ func main() {
 	// Читаем данные из канала updates и выполняем соответсвующие им действия
 	for update := range updates {
 		var message tgbotapi.MessageConfig
+		var mess string
 		log.Println("received text: ", update.Message.Text)
 		switch update.Message.Text {
 		case "Get Прикол":
@@ -181,10 +182,13 @@ func main() {
 			} else if validRUSSIANPOST.MatchString(update.Message.Text) == true {
 				// Поступил запрос трэк номера RUSSIANPOST
 				//mystr = strings.ToUpper(string(update.Message.Text))
-				message = tgbotapi.NewMessage(update.Message.Chat.ID, req2russianpost(string(update.Message.Text)))
+				mess = req2russianpost(string(update.Message.Text))
+				
 				// Если в ОАСУ РПО не найдено отправление, ищем в РК
-				if strings.Contains(message.Text, "Уточните") {
+				if strings.Contains(mess, "Уточните") {
 					message = tgbotapi.NewMessage(update.Message.Chat.ID, req2rkLip(string(update.Message.Text)))
+				} else {
+					message = tgbotapi.NewMessage(update.Message.Chat.ID, mess )
 				}
 
 			} else if validTranslate.MatchString(update.Message.Text) == true {
