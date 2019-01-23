@@ -184,9 +184,9 @@ func main() {
 				//mystr = strings.ToUpper(string(update.Message.Text))
 				mess = req2russianpost(string(update.Message.Text))
 				
-				// Если в ОАСУ РПО не найдено отправление, ищем в РК
+				// Если в ОАСУ РПО не найдено отправление, ищем в РК во вложении
 				if strings.Contains(mess, "Уточните") {
-					message = tgbotapi.NewMessage(update.Message.Chat.ID, req2rkLip(string(update.Message.Text)))
+					message = tgbotapi.NewMessage(update.Message.Chat.ID, req2rkLipAttach(string(update.Message.Text)))
 				} else {
 					message = tgbotapi.NewMessage(update.Message.Chat.ID, mess )
 				}
@@ -200,7 +200,7 @@ func main() {
 			}
 		}
 		// В ответном сообщении бота просим показать клавиатуру
-		message.ReplyMarkup = tgbotapi.NewReplyKeyboard(buttons)
+	//	message.ReplyMarkup = tgbotapi.NewReplyKeyboard(buttons)
 		bot.Send(message)
 	}
 
