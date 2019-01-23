@@ -182,6 +182,11 @@ func main() {
 				// Поступил запрос трэк номера RUSSIANPOST
 				//mystr = strings.ToUpper(string(update.Message.Text))
 				message = tgbotapi.NewMessage(update.Message.Chat.ID, req2russianpost(string(update.Message.Text)))
+				// Если в ОАСУ РПО не найдено отправление, ищем в РК
+				if strings.Contains(message.Text, "Уточните") {
+					message = tgbotapi.NewMessage(update.Message.Chat.ID, req2rkLip(string(update.Message.Text)))
+				}
+
 			} else if validTranslate.MatchString(update.Message.Text) == true {
 				// Поступил запрос текста на английском - переведем его.
 				message = tgbotapi.NewMessage(update.Message.Chat.ID, getTranslate(update.Message.Text))
@@ -190,7 +195,7 @@ func main() {
 				message = tgbotapi.NewMessage(update.Message.Chat.ID, `Уточните Штриховой Почтовый Идентификатор, пожалуйста. И повторите запрос.`)
 			}
 		}
-		// В ответном сообщении бота просим показать клавиатуре
+		// В ответном сообщении бота просим показать клавиатуру
 		message.ReplyMarkup = tgbotapi.NewReplyKeyboard(buttons)
 		bot.Send(message)
 	}
