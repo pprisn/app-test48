@@ -182,7 +182,6 @@ func main() {
 				message = tgbotapi.NewMessage(update.Message.Chat.ID, req2rkLip(string(update.Message.Text)))
 			} else if validRUSSIANPOST.MatchString(update.Message.Text) == true {
 				// Поступил запрос трэк номера RUSSIANPOST
-				//mystr = strings.ToUpper(string(update.Message.Text))
 				mess = req2russianpost(string(update.Message.Text))
 				
 				// Если в ОАСУ РПО не найдено отправление, ищем в РК во вложении

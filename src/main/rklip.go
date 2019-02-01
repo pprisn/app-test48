@@ -203,6 +203,7 @@ func req2rkLipAttach(attachment string) string {
 		sDelivstatus = strings.Join(Delivstatus, "\n")
 
 	} else {
+		Delivstatus = append(Delivstatus, fmt.Sprintf("ПОЧТА РОССИИ"))
 		Delivstatus = append(Delivstatus, fmt.Sprintf("РегионКурьер Липецк %v\t", trk[0].Barcode))
 		Delivstatus = append(Delivstatus, fmt.Sprintf("Дата приема         %v\t", trk[0].ReceiptDate))
 		Delivstatus = append(Delivstatus, fmt.Sprintf("Вложение            %v\t", trk[0].Attachment))
