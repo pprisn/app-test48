@@ -114,6 +114,7 @@ func req2rkLip(barcode string) string {
 		return sDelivstatus
 		//log.Fatal(err_trk)
 	}
+                log.Printf("trk[] = %v\n",trk)
 
 	if trk[0].Barcode == "" {
 
@@ -204,6 +205,7 @@ func req2rkLipAttach(attachment string) string {
 		return sDelivstatus
 		//log.Fatal(err_trk)
 	}
+        log.Printf("trk[] = %v\n",trk)
 
 	if trk[0].Barcode == "" {
 
