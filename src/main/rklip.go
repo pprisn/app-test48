@@ -189,7 +189,7 @@ func req2rkLipAttach(attachment string) string {
 	// Если содержимое htmlDtat не будет соответствовать структуре RKResp будет panic
 	// выполним проверку на соответствие htmlData структе RKResp
 	// Проверка на валидность структуры htmlData, если не валидна - заполняем пустыми данными
-	var validRKLip = regexp.MustCompile(`(?)(^\[\{"barcode":.*"attachment":.*"postoffice":.*"delivery_site":.*"receipt_date":.*"delivery_status":.*"delivery_status_name":.*"delivery_date":.*\}\]$)`)
+	var validRKLip = regexp.MustCompile(`(?)(^\[\{"barcode":.*"attachment":.*"whom":.*"address":.*"postoffice":.*"delivery_site":.*"receipt_date":.*"delivery_status":.*"delivery_status_name":.*"delivery_date":.*\}\]$)`)
 	if !validRKLip.MatchString(string(htmlData)) {
 		htmlData = RKResp2nilbyte()
 	}
