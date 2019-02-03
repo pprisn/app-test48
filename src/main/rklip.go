@@ -102,8 +102,8 @@ func req2rkLip(barcode string) string {
 	// выполним проверку на соответствие htmlData структе RKResp
 	// Проверка на валидность структуры htmlData, если не валидна - заполняем пустыми данными
 	log.Printf("htmlData= %v\n",string(htmlData))
-	var validRKLip = 
-	regexp.MustCompile(`(?m)(^\[\{"barcode":.*"attachment":.*"whom":.*"address":.*"postoffice":.*"delivery_site":.*"receipt_date":.*"delivery_status":.*"delivery_status_name":.*"delivery_date":.*\}\])$`)
+	var validRKLip = regexp.MustCompile(`(?m)(^\[\{"barcode":.*"attachment":.*"whom":.*"address":.*"postoffice":.*"delivery_site":.*"receipt_date":.*"delivery_status":.*"delivery_status_name":.*"delivery_date":.*\}\])$
+`)
 	if !validRKLip.MatchString(string(htmlData)) {
 		htmlData = RKResp2nilbyte()
 	}
@@ -192,7 +192,8 @@ func req2rkLipAttach(attachment string) string {
 	// выполним проверку на соответствие htmlData структе RKResp
 	// Проверка на валидность структуры htmlData, если не валидна - заполняем пустыми данными
 	log.Printf("htmlData= %v\n",string(htmlData))
-	var validRKLip = regexp.MustCompile(`(?m)(^\[\{"barcode":.*"attachment":.*"whom":.*"address":.*"postoffice":.*"delivery_site":.*"receipt_date":.*"delivery_status":.*"delivery_status_name":.*"delivery_date":.*\}\])$`)
+	var validRKLip = regexp.MustCompile(`(?m)(^\[\{"barcode":.*"attachment":.*"whom":.*"address":.*"postoffice":.*"delivery_site":.*"receipt_date":.*"delivery_status":.*"delivery_status_name":.*"delivery_date":.*\}\])$
+`)
 	if !validRKLip.MatchString(string(htmlData)) {
 		htmlData = RKResp2nilbyte()
 	}
