@@ -103,6 +103,21 @@ func req2rkLip(barcode string) string {
 	// выполним проверку на соответствие htmlData структе RKResp
 	// Проверка на валидность структуры htmlData, если не валидна - заполняем пустыми данными
 	log.Printf("htmlData= %v\n",strings.TrimSpace(string(htmlData)))
+//[
+//    {
+//        "barcode": "00079669363497376",
+//        "attachment": "Иванов И.В. ",
+//        "whom": "УПРАВ. СТРОИТ. И АРХЕТ. Л.О. ",
+//        "address": "г.Липецк, ул.Ворош, д.7",
+//        "postoffice": "398001",
+//        "delivery_site": "39800102",
+//        "receipt_date": "2019-02-01",
+//        "delivery_status": "dsToDelivery",
+//        "delivery_status_name": "К доставке",
+//        "delivery_date": null
+//    }
+//]
+//
 //  Пример на 3 поля (?m)[^\[]("barcode")\:.(?<barcode>[^\,]*)\.*[^\"]*("attachment")\:.(?<attachment>[^\,]*)\.*[^\"]*("whom")\:.(?<whom>[^\,]*)\.*[^\"]*("address")\:.(?<address>[^\,]*)\.*[^\"]*[^\}]*$
 //!	var validRKLip = regexp.MustCompile(`(?)(^\[\{"barcode":.*"attachment":.*"whom":.*"address":.*"postoffice":.*"delivery_site":.*"receipt_date":.*"delivery_status":.*"delivery_status_name":.*"delivery_date":.*\}\])$`)
 //!	if !validRKLip.MatchString(strings.TrimSpace(string(htmlData))) {
