@@ -150,8 +150,10 @@ func req2rkLip(barcode string) string {
 		Delivstatus = append(Delivstatus, fmt.Sprintf("Статус доставки     %v\t", Delivstatnames[trk[0].DeliveryStatus]))
 		Delivstatus = append(Delivstatus, fmt.Sprintf("Дата доставки       %v\t", trk[0].DeliveryDate))
 		Delivstatus = append(Delivstatus, fmt.Sprintf("Печатная форма документа"))
-		Delivstatus = append(Delivstatus, fmt.Sprintf("https://d01rkweblb.main.russianpost.ru/depeche/search.php?id=%spdf=1 \t",trk[0].Barcode))
+		Delivstatus = append(Delivstatus, fmt.Sprintf("https://d01rkweblb.main.russianpost.ru/depeche/search.php?id=%s&pdf=1 \t",trk[0].Barcode))
+                                                               https://d01rkweblb.main.russianpost.ru/depeche/search.php?id=00163674753516698&pdf=1
 		sDelivstatus = strings.Join(Delivstatus, "\n")
+
 		//fmt.Printf(string(htmlData))
 	}
 
@@ -243,7 +245,7 @@ func req2rkLipAttach(attachment string) string {
 		Delivstatus = append(Delivstatus, fmt.Sprintf("Статус доставки     %v\t", Delivstatnames[trk[0].DeliveryStatus]))
 		Delivstatus = append(Delivstatus, fmt.Sprintf("Дата доставки       %v\t", trk[0].DeliveryDate))
 		Delivstatus = append(Delivstatus, fmt.Sprintf("Печатная форма документа"))
-		Delivstatus = append(Delivstatus, fmt.Sprintf("https://d01rkweblb.main.russianpost.ru/depeche/search.php?id=%spdf=1 \t",trk[0].Barcode))
+		Delivstatus = append(Delivstatus, fmt.Sprintf("https://d01rkweblb.main.russianpost.ru/depeche/search.php?id=%s&pdf=1 \t",trk[0].Barcode))
 		sDelivstatus = strings.Join(Delivstatus, "\n")
 		//fmt.Printf(string(htmlData))
 	}
