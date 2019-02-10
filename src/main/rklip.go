@@ -151,7 +151,6 @@ func req2rkLip(barcode string) string {
 		Delivstatus = append(Delivstatus, fmt.Sprintf("Дата доставки       %v\t", trk[0].DeliveryDate))
 		Delivstatus = append(Delivstatus, fmt.Sprintf("Печатная форма документа"))
 		Delivstatus = append(Delivstatus, fmt.Sprintf("https://d01rkweblb.main.russianpost.ru/depeche/search.php?id=%s&pdf=1 \t",trk[0].Barcode))
-                                                               https://d01rkweblb.main.russianpost.ru/depeche/search.php?id=00163674753516698&pdf=1
 		sDelivstatus = strings.Join(Delivstatus, "\n")
 
 		//fmt.Printf(string(htmlData))
