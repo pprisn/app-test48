@@ -117,7 +117,7 @@ func req2rkLip(barcode string) string {
 //        "delivery_date": null
 //    }
 //]
-//
+
 //  Пример на 3 поля (?m)[^\[]("barcode")\:.(?<barcode>[^\,]*)\.*[^\"]*("attachment")\:.(?<attachment>[^\,]*)\.*[^\"]*("whom")\:.(?<whom>[^\,]*)\.*[^\"]*("address")\:.(?<address>[^\,]*)\.*[^\"]*[^\}]*$
 //!	var validRKLip = regexp.MustCompile(`(?)(^\[\{"barcode":.*"attachment":.*"whom":.*"address":.*"postoffice":.*"delivery_site":.*"receipt_date":.*"delivery_status":.*"delivery_status_name":.*"delivery_date":.*\}\])$`)
 //!	if !validRKLip.MatchString(strings.TrimSpace(string(htmlData))) {
@@ -149,6 +149,8 @@ func req2rkLip(barcode string) string {
 		Delivstatus = append(Delivstatus, fmt.Sprintf("Доставочный участок %v\t", trk[0].DeliverySite))
 		Delivstatus = append(Delivstatus, fmt.Sprintf("Статус доставки     %v\t", Delivstatnames[trk[0].DeliveryStatus]))
 		Delivstatus = append(Delivstatus, fmt.Sprintf("Дата доставки       %v\t", trk[0].DeliveryDate))
+		Delivstatus = append(Delivstatus, fmt.Sprintf("Печатная форма документа"))
+		Delivstatus = append(Delivstatus, fmt.Sprintf("https://d01rkweblb.main.russianpost.ru/depeche/search.php?id=%spdf=1 \t",trk[0].Barcode))
 		sDelivstatus = strings.Join(Delivstatus, "\n")
 		//fmt.Printf(string(htmlData))
 	}
@@ -240,6 +242,8 @@ func req2rkLipAttach(attachment string) string {
 		Delivstatus = append(Delivstatus, fmt.Sprintf("Доставочный участок %v\t", trk[0].DeliverySite))
 		Delivstatus = append(Delivstatus, fmt.Sprintf("Статус доставки     %v\t", Delivstatnames[trk[0].DeliveryStatus]))
 		Delivstatus = append(Delivstatus, fmt.Sprintf("Дата доставки       %v\t", trk[0].DeliveryDate))
+		Delivstatus = append(Delivstatus, fmt.Sprintf("Печатная форма документа"))
+		Delivstatus = append(Delivstatus, fmt.Sprintf("https://d01rkweblb.main.russianpost.ru/depeche/search.php?id=%spdf=1 \t",trk[0].Barcode))
 		sDelivstatus = strings.Join(Delivstatus, "\n")
 		//fmt.Printf(string(htmlData))
 	}
